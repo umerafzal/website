@@ -1,0 +1,130 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/Button.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import ProjectGrid from '@/components/ProjectGrid.astro';
+import ExperienceTimeline from '@/components/ExperienceTimeline.astro';
+import { focusAreas } from '@/data/focus';
+import { improvements } from '@/data/improvements';
+import { siteConfig } from '@/config/site';
+import { getFeaturedProjects, getProjectsByType } from '@/utils/projects';
+import { href } from '@/utils/paths';
+
+const featured = await getFeaturedProjects(5);
+const personalProjects = (await getProjectsByType('personal')).slice(0, 4);
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: siteConfig.name,
+  jobTitle: siteConfig.role,
+  url: siteConfig.url,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Berlin',
+    addressCountry: 'DE',
+  },
+  sameAs: [siteConfig.social.github, siteConfig.social.linkedin].filter(Boolean),
+};
+---
+
+<BaseLayout
+  description={siteConfig.bio}
+  path="/"
+  jsonLd={personJsonLd}
+>
+  <Container as="section" class="py-16 sm:py-24">
+    <p class="font-mono text-xs uppercase tracking-[0.2em] text-[var(--muted)]">Berlin · Mobile</p>
+    <h1 class="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl">
+      {siteConfig.name}
+    </h1>
+    <p class="mt-6 max-w-2xl text-xl text-[var(--fg)] leading-snug sm:text-2xl">{siteConfig.headline}</p>
+    <p class="mt-6 max-w-2xl text-[var(--muted)] leading-relaxed">{siteConfig.bio}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <Button href={href('/projects')}>View selected work</Button>
+      <Button href={href('/about')} variant="ghost">About me</Button>
+    </div>
+    <div class="mt-10">
+      <SocialLinks />
+    </div>
+  </Container>
+
+  <Container as="section" class="border-t border-[var(--border)] py-16" aria-labelledby="selected-work">
+    <SectionHeading
+      id="selected-work"
+      eyebrow="Work"
+      title="Selected work"
+      description="Commercial products, personal builds, and experiments — with case studies where it helps explain the engineering."
+    />
+    <ProjectGrid projects={featured} />
+    <p class="mt-8">
+      <a class="text-sm text-[var(--accent)] underline underline-offset-4" href={href('/projects')}>Browse all projects</a>
+    </p>
+  </Container>
+
+  <Container as="section" class="border-t border-[var(--border)] py-16" aria-labelledby="personal-projects">
+    <SectionHeading
+      id="personal-projects"
+      eyebrow="Indie"
+      title="Personal projects"
+      description="Independent ideas and prototypes — status is explicit so nothing is oversold."
+    />
+    <ProjectGrid projects={personalProjects} />
+    <p class="mt-8">
+      <a class="text-sm text-[var(--accent)] underline underline-offset-4" href={href('/projects/personal')}>All personal projects</a>
+    </p>
+  </Container>
+
+  <Container as="section" class="border-t border-[var(--border)] py-16" aria-labelledby="engineering-focus">
+    <SectionHeading
+      id="engineering-focus"
+      eyebrow="Focus"
+      title="Engineering focus"
+      description="Areas where most of my time and judgment go — described as focus, not hype."
+    />
+    <ul class="grid gap-5 sm:grid-cols-2" role="list">
+      {
+        focusAreas.map((area) => (
+          <li class="rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-5">
+            <h3 class="font-semibold">{area.title}</h3>
+            <p class="mt-2 text-sm text-[var(--muted)]">{area.description}</p>
+            <ul class="mt-4 flex flex-wrap gap-2" role="list">
+              {area.technologies.map((t) => (
+                <li class="font-mono text-[0.65rem] text-[var(--muted)]">{t}</li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+
+  <Container as="section" class="border-t border-[var(--border)] py-16" aria-labelledby="things-improved">
+    <SectionHeading
+      id="things-improved"
+      eyebrow="Impact"
+      title="Things I've improved"
+      description="I care about systems that get easier to change, observe, and ship — not just features that land once."
+    />
+    <ul class="grid gap-3 sm:grid-cols-2" role="list">
+      {
+        improvements.map((item) => (
+          <li class="flex items-start gap-3 rounded-md border border-[var(--border)] px-4 py-3">
+            <span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent)]" aria-hidden="true" />
+            <span class="text-sm">
+              {item.label}
+              {item.detail && <span class="block text-[var(--muted)]">{item.detail}</span>}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+
+  <Container as="section" class="border-t border-[var(--border)] py-16 pb-24" aria-labelledby="experience">
+    <SectionHeading id="experience" eyebrow="Background" title="Experience" />
+    <ExperienceTimeline />
+  </Container>
+</BaseLayout>

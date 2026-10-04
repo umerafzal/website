@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ProjectFilters from '@/components/ProjectFilters.astro';
+import ProjectGrid from '@/components/ProjectGrid.astro';
+import { getProjectsByType } from '@/utils/projects';
+
+const projects = await getProjectsByType('personal');
+---
+
+<BaseLayout title="Personal projects" description="Independent products and prototypes." path="/projects/personal">
+  <Container class="py-16 sm:py-20">
+    <SectionHeading title="Personal" description="Ideas and products built outside day-to-day employment." />
+    <ProjectFilters active="personal" />
+    <ProjectGrid projects={projects} />
+  </Container>
+</BaseLayout>

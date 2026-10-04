@@ -1,0 +1,46 @@
+---
+import Tag from '@/components/Tag.astro';
+import type { CollectionEntry } from 'astro:content';
+import { projectSlug } from '@/utils/projects';
+import { href } from '@/utils/paths';
+
+type Project = CollectionEntry<'projects'>;
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const slug = projectSlug(project);
+const projectHref = href(`/projects/${slug}`);
+---
+
+<article
+  class="group relative flex flex-col rounded-lg border border-[var(--border)] bg-[var(--bg-elevated)] p-5 transition-colors hover:border-[var(--accent)]"
+>
+  <div class="mb-3 flex flex-wrap items-center gap-2">
+    <Tag label={project.data.type} />
+    <Tag label={project.data.status} />
+  </div>
+  <h3 class="text-lg font-semibold tracking-tight">
+    <a href={projectHref} class="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]">
+      {project.data.title}
+    </a>
+  </h3>
+  {
+    project.data.category && (
+      <p class="mt-1 font-mono text-xs text-[var(--muted)]">{project.data.category}</p>
+    )
+  }
+  <p class="mt-3 flex-1 text-sm leading-relaxed text-[var(--muted)]">{project.data.description}</p>
+  <ul class="mt-4 flex flex-wrap gap-2" role="list">
+    {
+      project.data.technologies.slice(0, 4).map((tech) => (
+        <li class="font-mono text-[0.65rem] text-[var(--muted)]">{tech}</li>
+      ))
+    }
+  </ul>
+  <p class="mt-4 text-sm text-[var(--accent)] transition-transform group-hover:translate-x-0.5">
+    Case study →
+  </p>
+</article>

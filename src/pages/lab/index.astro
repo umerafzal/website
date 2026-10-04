@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ProjectGrid from '@/components/ProjectGrid.astro';
+import { getProjectsByType } from '@/utils/projects';
+
+const experiments = await getProjectsByType('experiment');
+---
+
+<BaseLayout
+  title="Lab"
+  description="Technical experiments — mobile AI, on-device models, agents, and developer tooling."
+  path="/lab"
+>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading
+      title="Lab"
+      description="More exploratory than the commercial work section. Expect prototypes, notes, and half-finished ideas."
+    />
+    <ul class="mb-12 grid gap-4 sm:grid-cols-2" role="list">
+      <li class="rounded-lg border border-dashed border-[var(--border)] p-4 font-mono text-xs text-[var(--muted)]">
+        AI · Mobile AI · On-device AI · Agents
+      </li>
+      <li class="rounded-lg border border-dashed border-[var(--border)] p-4 font-mono text-xs text-[var(--muted)]">
+        Developer tooling · React Native · Swift · Automation
+      </li>
+    </ul>
+    <ProjectGrid projects={experiments} />
+  </Container>
+</BaseLayout>

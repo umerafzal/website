@@ -1,0 +1,13 @@
+---
+description: Astro pages, layouts, and TypeScript conventions
+globs: "{src/**/*.{astro,ts,tsx},astro.config.*}"
+alwaysApply: false
+---
+
+# Astro + TS
+
+- Use content collections + Zod in `src/content.config.ts`; type-safe `getCollection` / `getEntry`.
+- Pages: thin orchestration; reuse `Container`, `SectionHeading`, layout SEO props.
+- Prefer `.astro` for static markup; React/Vue islands only when interactivity is required.
+- Import site meta from `@/config/site` (or project alias). Strict TS — no `any` for content.
+- Images: Astro assets or `public/`; lazy-load non-critical images.

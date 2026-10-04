@@ -1,0 +1,25 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ProjectFilters from '@/components/ProjectFilters.astro';
+import ProjectGrid from '@/components/ProjectGrid.astro';
+import { getPublishedProjects } from '@/utils/projects';
+
+const projects = await getPublishedProjects();
+---
+
+<BaseLayout
+  title="Work"
+  description="Commercial, personal, and experimental projects — case studies and lab notes."
+  path="/projects"
+>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading
+      title="Work"
+      description="Projects grouped by context. Commercial work stays abstract; personal and lab entries can go deeper."
+    />
+    <ProjectFilters active="all" />
+    <ProjectGrid projects={projects} />
+  </Container>
+</BaseLayout>

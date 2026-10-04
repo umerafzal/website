@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import { getCollection, render } from 'astro:content';
+import { formatDate, writingSlug } from '@/utils/writing';
+import { href } from '@/utils/paths';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writing');
+  return posts.map((post) => ({
+    params: { slug: writingSlug(post) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const slug = writingSlug(post);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  path={`/writing/${slug}`}
+  ogType="article"
+  noindex={post.data.draft}
+>
+  <Container as="article" class="py-16 sm:py-20">
+    <header class="mb-10 max-w-2xl border-b border-[var(--border)] pb-8">
+      {
+        post.data.draft && (
+          <p class="mb-3 font-mono text-xs uppercase tracking-wide text-[var(--muted)]">Example draft</p>
+        )
+      }
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{post.data.title}</h1>
+      <p class="mt-4 text-[var(--muted)]">{post.data.description}</p>
+      <p class="mt-4 font-mono text-xs text-[var(--muted)]">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        {
+          post.data.readingTimeMinutes && (
+            <>
+              {' '}
+              · {post.data.readingTimeMinutes} min read
+            </>
+          )
+        }
+      </p>
+    </header>
+    <div class="prose-portfolio max-w-2xl">
+      <Content />
+    </div>
+    <p class="mt-12">
+      <a href={href('/writing')} class="text-sm text-[var(--accent)] underline underline-offset-4">← Writing</a>
+    </p>
+  </Container>
+</BaseLayout>

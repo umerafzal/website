@@ -1,0 +1,17 @@
+---
+description: MDX project and writing content rules
+globs: "src/content/**/*.{md,mdx}"
+alwaysApply: false
+---
+
+# Content MDX
+
+Project frontmatter must include: `title`, `description`, `type` (commercial|personal|experiment), `status`, `date`, `technologies`, `featured`, `draft`.
+
+- `type: commercial` → case-study sections in body; no confidential internals.
+- `type: experiment` → may appear on `/lab` as well as projects index.
+- Do not claim shipped features unless `status` supports it.
+
+Writing: `title`, `date`, `description`, `tags`; mark non-real posts with `draft: true` or clear “Example draft” in description.
+
+Tone: concrete engineering language; no résumé clichés.

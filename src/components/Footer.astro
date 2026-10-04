@@ -1,0 +1,21 @@
+---
+import Container from '@/components/Container.astro';
+import SocialLinks from '@/components/SocialLinks.astro';
+import { siteConfig } from '@/config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-[var(--border)] py-12">
+  <Container class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
+    <div>
+      <p class="font-semibold">{siteConfig.name}</p>
+      <p class="mt-1 text-sm text-[var(--muted)]">{siteConfig.role}</p>
+      <p class="text-sm text-[var(--muted)]">{siteConfig.location}</p>
+    </div>
+    <SocialLinks />
+  </Container>
+  <Container class="mt-8">
+    <p class="font-mono text-xs text-[var(--muted)]">© {year} {siteConfig.name}</p>
+  </Container>
+</footer>

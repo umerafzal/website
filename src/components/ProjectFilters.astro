@@ -1,0 +1,35 @@
+---
+import { href } from '@/utils/paths';
+
+interface Props {
+  active?: 'all' | 'commercial' | 'personal' | 'experiment';
+}
+
+const { active = 'all' } = Astro.props;
+
+const filters = [
+  { key: 'all', href: href('/projects'), label: 'All' },
+  { key: 'commercial', href: href('/projects/commercial'), label: 'Commercial' },
+  { key: 'personal', href: href('/projects/personal'), label: 'Personal' },
+  { key: 'experiment', href: href('/projects/experiments'), label: 'Experiments' },
+] as const;
+---
+
+<nav aria-label="Project categories" class="mb-10 flex flex-wrap gap-2">
+  {
+    filters.map((filter) => (
+      <a
+        href={filter.href}
+        class:list={[
+          'rounded-md border px-3 py-1.5 font-mono text-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]',
+          active === filter.key
+            ? 'border-[var(--accent)] bg-[var(--accent-muted)] text-[var(--fg)]'
+            : 'border-[var(--border)] text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--fg)]',
+        ]}
+        aria-current={active === filter.key ? 'page' : undefined}
+      >
+        {filter.label}
+      </a>
+    ))
+  }
+</nav>

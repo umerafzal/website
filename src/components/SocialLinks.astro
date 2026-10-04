@@ -1,0 +1,38 @@
+---
+import { siteConfig } from '@/config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+const links = [
+  { label: 'GitHub', href: siteConfig.social.github, key: 'github' },
+  { label: 'LinkedIn', href: siteConfig.social.linkedin, key: 'linkedin' },
+  { label: 'Email', href: siteConfig.email ? `mailto:${siteConfig.email}` : '', key: 'email' },
+].filter((l) => l.href);
+---
+
+{
+  links.length > 0 ? (
+    <ul class:list={['flex flex-wrap gap-x-5 gap-y-2 text-sm', className]} role="list">
+      {links.map((link) => (
+        <li>
+          <a
+            class="text-[var(--muted)] transition-colors hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+            href={link.href}
+            rel={link.key === 'email' ? undefined : 'noopener noreferrer'}
+            target={link.key === 'email' ? undefined : '_blank'}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="font-mono text-xs text-[var(--muted)]">
+      Add GitHub, LinkedIn, and email in <code>src/config/site.ts</code>.
+    </p>
+  )
+}

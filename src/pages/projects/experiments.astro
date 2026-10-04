@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ProjectFilters from '@/components/ProjectFilters.astro';
+import ProjectGrid from '@/components/ProjectGrid.astro';
+import { getProjectsByType } from '@/utils/projects';
+
+const projects = await getProjectsByType('experiment');
+---
+
+<BaseLayout title="Experiments" description="Lab-style experiments and prototypes." path="/projects/experiments">
+  <Container class="py-16 sm:py-20">
+    <SectionHeading title="Experiments" description="Not production commitments — learning in public where it makes sense." />
+    <ProjectFilters active="experiment" />
+    <ProjectGrid projects={projects} />
+  </Container>
+</BaseLayout>

@@ -1,0 +1,115 @@
+---
+import Container from '@/components/Container.astro';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+import { siteConfig } from '@/config/site';
+import { href, pathnameWithoutBase } from '@/utils/paths';
+
+const nav = [
+  { href: href('/projects'), label: 'Work', match: '/projects' },
+  { href: href('/lab'), label: 'Lab', match: '/lab' },
+  { href: href('/writing'), label: 'Writing', match: '/writing' },
+  { href: href('/about'), label: 'About', match: '/about' },
+];
+
+const pathname = pathnameWithoutBase(Astro.url.pathname);
+---
+
+<header class="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-md">
+  <Container as="nav" class="flex h-14 items-center justify-between gap-4" aria-label="Main">
+    <div class="flex min-w-0 items-center gap-8">
+      <a
+        href={href('/')}
+        class="truncate text-sm font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+      >
+        {siteConfig.name}
+      </a>
+      <ul class="hidden items-center gap-6 md:flex" role="list">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  'text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]',
+                  pathname.startsWith(item.match)
+                    ? 'text-[var(--fg)]'
+                    : 'text-[var(--muted)] hover:text-[var(--fg)]',
+                ]}
+                aria-current={pathname.startsWith(item.match) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="flex items-center gap-3">
+      {
+        siteConfig.social.github ? (
+          <a
+            href={siteConfig.social.github}
+            class="hidden text-sm text-[var(--muted)] hover:text-[var(--fg)] sm:inline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        ) : null
+      }
+      <ThemeToggle />
+      <button
+        type="button"
+        id="mobile-nav-toggle"
+        class="inline-flex rounded-md border border-[var(--border)] px-2.5 py-1.5 font-mono text-xs text-[var(--muted)] md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+        aria-expanded="false"
+        aria-controls="mobile-nav-panel"
+      >
+        Menu
+      </button>
+    </div>
+  </Container>
+  <div id="mobile-nav-panel" class="hidden border-t border-[var(--border)] md:hidden" hidden>
+    <Container as="nav" class="flex flex-col gap-3 py-4" aria-label="Mobile">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class="text-sm text-[var(--muted)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      {
+        siteConfig.social.github ? (
+          <a
+            href={siteConfig.social.github}
+            class="text-sm text-[var(--muted)] hover:text-[var(--fg)]"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        ) : null
+      }
+    </Container>
+  </div>
+</header>
+
+<script is:inline>
+  const toggle = document.getElementById('mobile-nav-toggle');
+  const panel = document.getElementById('mobile-nav-panel');
+  toggle?.addEventListener('click', () => {
+    const open = panel?.hasAttribute('hidden');
+    if (open) {
+      panel?.removeAttribute('hidden');
+      panel?.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      panel?.setAttribute('hidden', '');
+      panel?.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

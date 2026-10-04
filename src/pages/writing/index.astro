@@ -1,0 +1,31 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ArticleCard from '@/components/ArticleCard.astro';
+import { getWritingIndex } from '@/utils/writing';
+
+const articles = await getWritingIndex(true);
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes and articles on mobile architecture, reliability, React Native, and AI on mobile."
+  path="/writing"
+>
+  <Container class="py-16 sm:py-20">
+    <SectionHeading
+      title="Writing"
+      description="Longer-form thinking. Drafts marked clearly until they're ready to publish."
+    />
+    <ul class="grid gap-5" role="list">
+      {
+        articles.map((article) => (
+          <li>
+            <ArticleCard article={article} />
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</BaseLayout>

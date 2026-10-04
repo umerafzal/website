@@ -1,0 +1,18 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/Container.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import ProjectFilters from '@/components/ProjectFilters.astro';
+import ProjectGrid from '@/components/ProjectGrid.astro';
+import { getProjectsByType } from '@/utils/projects';
+
+const projects = await getProjectsByType('commercial');
+---
+
+<BaseLayout title="Commercial work" description="Commercial mobile engineering case studies." path="/projects/commercial">
+  <Container class="py-16 sm:py-20">
+    <SectionHeading title="Commercial" description="Large-scale product work — described at a confidentiality-safe level." />
+    <ProjectFilters active="commercial" />
+    <ProjectGrid projects={projects} />
+  </Container>
+</BaseLayout>

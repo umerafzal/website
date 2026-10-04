@@ -1,0 +1,30 @@
+---
+import { experience } from '@/data/experience';
+---
+
+<ol class="relative space-y-10 border-l border-[var(--border)] pl-6" role="list">
+  {
+    experience.map((entry) => (
+      <li class="relative">
+        <span
+          class="absolute -left-[calc(0.375rem+1px)] top-1.5 h-2 w-2 rounded-full bg-[var(--accent)]"
+          aria-hidden="true"
+        />
+        <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+          <h3 class="text-lg font-semibold">{entry.company}</h3>
+          <p class="font-mono text-xs text-[var(--muted)]">
+            {entry.start} — {entry.end}
+          </p>
+        </div>
+        <p class="text-sm font-medium text-[var(--muted)]">{entry.role}</p>
+        {entry.location && <p class="text-sm text-[var(--muted)]">{entry.location}</p>}
+        <p class="mt-3 text-sm leading-relaxed text-[var(--muted)]">{entry.summary}</p>
+        <ul class="mt-3 flex flex-wrap gap-2" role="list">
+          {entry.technologies.map((tech) => (
+            <li class="font-mono text-[0.65rem] text-[var(--muted)]">{tech}</li>
+          ))}
+        </ul>
+      </li>
+    ))
+  }
+</ol>

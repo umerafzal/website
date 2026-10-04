@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, writingSlug } from '@/utils/writing';
+import { href } from '@/utils/paths';
+
+type Article = CollectionEntry<'writing'>;
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+const slug = writingSlug(article);
+---
+
+<article class="group relative rounded-lg border border-[var(--border)] p-5 transition-colors hover:border-[var(--accent)]">
+  <div class="mb-2 flex flex-wrap items-center gap-2 font-mono text-xs text-[var(--muted)]">
+    <time datetime={article.data.date.toISOString()}>{formatDate(article.data.date)}</time>
+    {
+      article.data.readingTimeMinutes && (
+        <span aria-hidden="true">·</span>
+      )
+    }
+    {
+      article.data.readingTimeMinutes && (
+        <span>{article.data.readingTimeMinutes} min read</span>
+      )
+    }
+    {
+      article.data.draft && (
+        <span class="rounded border border-[var(--border)] px-1.5 py-0.5 uppercase tracking-wide">
+          Draft
+        </span>
+      )
+    }
+  </div>
+  <h3 class="text-lg font-semibold">
+    <a href={href(`/writing/${slug}`)} class="after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]">
+      {article.data.title}
+    </a>
+  </h3>
+  <p class="mt-2 text-sm text-[var(--muted)]">{article.data.description}</p>
+  {
+    article.data.tags.length > 0 && (
+      <ul class="mt-3 flex flex-wrap gap-2" role="list">
+        {article.data.tags.map((tag) => (
+          <li class="font-mono text-[0.65rem] text-[var(--muted)]">{tag}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>

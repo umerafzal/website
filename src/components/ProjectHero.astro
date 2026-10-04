@@ -1,0 +1,32 @@
+---
+import Tag from '@/components/Tag.astro';
+import TechnologyList from '@/components/TechnologyList.astro';
+import type { CollectionEntry } from 'astro:content';
+
+type Project = CollectionEntry<'projects'>;
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<header class="mb-12 border-b border-[var(--border)] pb-10">
+  <div class="mb-4 flex flex-wrap gap-2">
+    <Tag label={project.data.type} />
+    <Tag label={project.data.status} />
+  </div>
+  <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">{project.data.title}</h1>
+  <p class="mt-4 max-w-2xl text-lg text-[var(--muted)] leading-relaxed">{project.data.description}</p>
+  {
+    (project.data.role || project.data.employer) && (
+      <p class="mt-4 font-mono text-sm text-[var(--muted)]">
+        {[project.data.role, project.data.employer].filter(Boolean).join(' · ')}
+      </p>
+    )
+  }
+  <div class="mt-6">
+    <TechnologyList items={project.data.technologies} />
+  </div>
+</header>

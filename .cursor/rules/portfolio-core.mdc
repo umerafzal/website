@@ -1,0 +1,13 @@
+---
+description: Core portfolio standards — stack, honesty, confidentiality
+alwaysApply: true
+---
+
+# Portfolio core
+
+- Static Astro only; no backend, CMS, or auth.
+- Social/email URLs only in `src/config/site.ts`; components import config.
+- Never invent employment, metrics, awards, or product features. Use `draft: true` or placeholders.
+- Commercial MDX: high-level abstraction; optional quiet confidentiality note.
+- Filtering projects: static routes (`/projects/commercial`, etc.), not client-side filter libraries.
+- Islands only for theme toggle and mobile nav if needed.
