@@ -16,7 +16,7 @@ Open [http://localhost:4321](http://localhost:4321).
 | Command | Action |
 | --- | --- |
 | `npm run dev` | Start dev server |
-| `npm run build` | Typecheck + production build to `dist/` |
+| `npm run build` | Production build to `dist/` |
 | `npm run preview` | Preview production build |
 | `npm run check` | Astro + TypeScript check |
 
@@ -34,6 +34,8 @@ Open [http://localhost:4321](http://localhost:4321).
 4. `public/CNAME` is already set to `umerafzal.dev`.
 
 Workflow: `.github/workflows/deploy.yml` (Node 22 on CI).
+
+**If deploy fails:** In repo **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from a branch”). Re-run the workflow from the **Actions** tab. Live site: `https://umerafzal.github.io/website/`
 
 ## Agent docs
 
