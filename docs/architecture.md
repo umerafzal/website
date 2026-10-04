@@ -96,9 +96,10 @@ Every page: unique title, description, canonical, Open Graph, Twitter card. Home
 
 ## Deployment
 
-- Workflow: `.github/workflows/deploy.yml`
-- Build `dist/`, upload as Pages artifact, deploy with `actions/deploy-pages`
-- `public/CNAME` contains `umerafzal.dev`
+- Workflow: `.github/workflows/deploy.yml` → builds `dist/`, pushes to `gh-pages` via `peaceiris/actions-gh-pages`
+- GitHub Pages source: branch `gh-pages`, folder `/ (root)`
+- Repo **Settings → Actions → Workflow permissions**: Read and write
+- Project URL: `https://umerafzal.github.io/website/` (`base: '/website/'` in Astro)
 - Do not claim a live deploy unless it was actually run
 
 ## Implementation order for agents

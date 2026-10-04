@@ -28,14 +28,24 @@ Open [http://localhost:4321](http://localhost:4321).
 
 ## Deploy (GitHub Pages)
 
-1. Push to `main` on `umerafzal/website`.
-2. Repository **Settings → Pages**: source **GitHub Actions**.
-3. DNS: `CNAME` for `umerafzal.dev` → GitHub Pages (see GitHub docs).
-4. `public/CNAME` is already set to `umerafzal.dev`.
+Live URL (project site, no custom domain): **https://umerafzal.github.io/website/**
 
-Workflow: `.github/workflows/deploy.yml` (Node 22 on CI).
+### One-time GitHub settings
 
-**If deploy fails:** In repo **Settings → Pages**, set **Source** to **GitHub Actions** (not “Deploy from a branch”). Re-run the workflow from the **Actions** tab. Live site: `https://umerafzal.github.io/website/`
+1. **Settings → Actions → General → Workflow permissions**  
+   Choose **Read and write permissions** (required so the workflow can push `gh-pages`).
+
+2. **Settings → Pages → Build and deployment**  
+   - **Source:** Deploy from a branch  
+   - **Branch:** `gh-pages` / **/(root)**  
+
+3. Push to `main` (or run **Actions → Deploy to GitHub Pages → Run workflow**).
+
+### Notes
+
+- The workflow builds `dist/` and publishes it to the `gh-pages` branch via `peaceiris/actions-gh-pages`.
+- **Private repos** need GitHub Pro (or make the repo public) for Pages on the free plan.
+- For a custom domain later, add DNS + `public/CNAME` and switch Astro `site` / `base` as needed.
 
 ## Agent docs
 
