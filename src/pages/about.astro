@@ -3,30 +3,33 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Container from '@/components/Container.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import SocialLinks from '@/components/SocialLinks.astro';
+import ExperienceTimeline from '@/components/ExperienceTimeline.astro';
 import { siteConfig } from '@/config/site';
+import { education } from '@/data/education';
 ---
 
 <BaseLayout title="About" description={`About ${siteConfig.name} — ${siteConfig.role} in ${siteConfig.location}.`} path="/about">
   <Container as="article" class="py-16 sm:py-20">
-    <SectionHeading title="About" description="Personal but professional — who I am and what I'm building toward." />
+    <SectionHeading title="About" description="Personal but professional — background, education, and what I'm building toward." />
 
     <div class="prose-portfolio max-w-2xl space-y-8">
       <section aria-labelledby="bio">
         <h2 id="bio" class="text-lg font-semibold text-[var(--fg)]">Biography</h2>
         <p>{siteConfig.bio}</p>
         <p>
-          I work on mobile systems where reliability, architecture, and developer experience matter — usually on
-          large consumer products, with increasing attention to AI and intelligent software.
+          I care about architecture discussions that turn into shippable structure — modularisation, clear
+          boundaries, and helping colleagues grow through reviews and learning. Alongside core iOS work, I'm
+          exploring AI and intelligent tooling for mobile and developer workflows.
         </p>
       </section>
 
       <section aria-labelledby="enjoy">
         <h2 id="enjoy" class="text-lg font-semibold text-[var(--fg)]">What I enjoy building</h2>
         <ul>
-          <li>Mobile products</li>
-          <li>Developer infrastructure</li>
-          <li>Reliable systems</li>
-          <li>AI-powered experiences</li>
+          <li>Consumer iOS products and long-lived codebases</li>
+          <li>Modular architecture and migration paths (Objective-C → Swift, native ↔ React Native)</li>
+          <li>Reliable wallet, marketplace, and fintech-style flows</li>
+          <li>AI-powered experiences and developer tooling (personal exploration)</li>
         </ul>
       </section>
 
@@ -36,16 +39,42 @@ import { siteConfig } from '@/config/site';
           <li>On-device AI</li>
           <li>Apple Foundation Models</li>
           <li>Mobile AI infrastructure</li>
-          <li>AI agents</li>
-          <li>RAG</li>
+          <li>AI agents and RAG</li>
           <li>Developer tooling</li>
         </ul>
       </section>
 
-      <section aria-labelledby="beyond">
-        <h2 id="beyond" class="text-lg font-semibold text-[var(--fg)]">Beyond code</h2>
-        <p class="font-mono text-sm">TODO: Add a few personal interests when ready — left intentionally blank.</p>
+      <section aria-labelledby="education">
+        <h2 id="education" class="text-lg font-semibold text-[var(--fg)]">Education</h2>
+        {
+          education.map((entry) => (
+            <div class="mb-4">
+              <p class="text-[var(--fg)] font-medium">{entry.degree}</p>
+              <p class="text-sm text-[var(--muted)]">
+                {entry.institution}
+                {entry.location ? ` · ${entry.location}` : ''}
+              </p>
+              <p class="font-mono text-xs text-[var(--muted)]">
+                {entry.start} — {entry.end}
+              </p>
+            </div>
+          ))
+        }
       </section>
+
+      <section aria-labelledby="privacy">
+        <h2 id="privacy" class="text-lg font-semibold text-[var(--fg)]">Privacy note</h2>
+        <p class="text-sm">
+          This site lists only information suitable for a public professional profile. Employer case studies
+          stay abstract; internal metrics, tooling names, and unreleased product detail are intentionally
+          omitted.
+        </p>
+      </section>
+    </div>
+
+    <div class="mt-16 border-t border-[var(--border)] pt-12">
+      <SectionHeading title="Full experience" description="Earlier roles and employers — same timeline as the homepage, for context." />
+      <ExperienceTimeline />
     </div>
 
     <div class="mt-12 border-t border-[var(--border)] pt-8">

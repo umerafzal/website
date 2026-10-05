@@ -1,15 +1,15 @@
 export const siteConfig = {
   name: 'Umer Afzal',
-  role: 'Senior Mobile Engineer',
+  role: 'Senior iOS Engineer',
   location: 'Berlin, Germany',
   headline:
-    'Senior Mobile Engineer building reliable products and exploring AI.',
-  bio: 'Umer is a senior software engineer with 10+ years of experience building mobile products, working across iOS, React Native, TypeScript and modern mobile infrastructure.',
+    'Senior iOS engineer building reliable consumer products and exploring mobile AI.',
+  bio: 'Senior iOS engineer with more than a decade of experience shipping mobile products — from ride-hailing and health apps to fintech and large-scale consumer brands. Strong focus on Swift, modular architecture, and cross-platform integration where it makes sense.',
   url: 'https://umerafzal.github.io/website',
-  email: '', // TODO: add contact email
+  email: 'umer.afzal07@gmail.com',
   social: {
-    github: '', // TODO: e.g. https://github.com/umerafzal
-    linkedin: '', // TODO: e.g. https://www.linkedin.com/in/...
+    github: '', // Add if you want it shown in the header
+    linkedin: 'https://www.linkedin.com/in/umer-afzal',
   },
 } as const;
 

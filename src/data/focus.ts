@@ -6,28 +6,28 @@ export type FocusArea = {
 
 export const focusAreas: FocusArea[] = [
   {
-    title: 'Mobile Engineering',
-    description: 'Shipping and maintaining consumer mobile products at scale.',
-    technologies: ['iOS', 'Swift', 'React Native', 'TypeScript'],
+    title: 'iOS Engineering',
+    description: 'Consumer apps at scale — Swift, UIKit/SwiftUI patterns, and long-lived codebases.',
+    technologies: ['iOS', 'Swift', 'Objective-C modernization'],
   },
   {
     title: 'Architecture',
-    description: 'Modularization, migrations, and structures that teams can extend safely.',
-    technologies: ['Modularization', 'Migrations', 'Scalable mobile architecture'],
+    description: 'Modularization, MVVM/C coordinators, dependency injection, and reviews that keep teams aligned.',
+    technologies: ['Modularization', 'MVVM', 'RxSwift', 'React Native integration'],
   },
   {
-    title: 'Reliability',
-    description: 'Sessions, errors, and visibility so production issues are understandable.',
-    technologies: ['Authentication', 'Session management', 'Observability', 'Error handling'],
+    title: 'Reliability & quality',
+    description: 'Testing, CI/CD, and practices that keep releases predictable.',
+    technologies: ['Unit testing', 'CI/CD', 'Code review'],
   },
   {
-    title: 'Developer Experience',
-    description: 'Tooling and workflows that reduce friction for mobile engineers.',
-    technologies: ['Tooling', 'Automation', 'Engineering productivity'],
+    title: 'Product domains',
+    description: 'Experience across ride-hailing, food delivery, fintech, health, and education products.',
+    technologies: ['FinTech', 'Marketplace apps', 'Wallet experiences'],
   },
   {
-    title: 'AI & Intelligent Systems',
-    description: 'Exploring on-device and mobile-adjacent AI, agents, and intelligent apps.',
-    technologies: ['On-device AI', 'Mobile AI infrastructure', 'Agents', 'RAG'],
+    title: 'AI & intelligent systems',
+    description: 'Exploring on-device and mobile-adjacent AI, agents, and tooling (personal R&D).',
+    technologies: ['On-device AI', 'Agents', 'Developer tooling'],
   },
 ];
