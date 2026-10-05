@@ -1,0 +1,16 @@
+{
+  "name": "Umer Afzal",
+  "short_name": "Umer Afzal",
+  "description": "Senior Mobile Engineer — portfolio",
+  "start_url": "/website/",
+  "display": "standalone",
+  "background_color": "#0a0b0d",
+  "theme_color": "#0a0b0d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

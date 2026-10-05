@@ -1,0 +1,59 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v5.18.2"><title>Developer tooling experiments — Umer Afzal</title><meta name="description" content="Scripts and small tools that improve local workflows for mobile and TypeScript development."><link rel="canonical" href="https://umerafzal.github.io/website/projects/developer-tooling-lab"><meta property="og:site_name" content="Umer Afzal"><meta property="og:title" content="Developer tooling experiments — Umer Afzal"><meta property="og:description" content="Scripts and small tools that improve local workflows for mobile and TypeScript development."><meta property="og:url" content="https://umerafzal.github.io/website/projects/developer-tooling-lab"><meta property="og:type" content="article"><meta property="og:locale" content="en_GB"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Developer tooling experiments — Umer Afzal"><meta name="twitter:description" content="Scripts and small tools that improve local workflows for mobile and TypeScript development."><link rel="icon" type="image/svg+xml" href="/website/favicon.svg"><link rel="manifest" href="/website/site.webmanifest"><meta name="theme-color" content="#0a0b0d"><script>
+      try {
+        const t = localStorage.getItem('theme');
+        if (t === 'light') document.documentElement.dataset.theme = 'light';
+        else if (!t && window.matchMedia('(prefers-color-scheme: light)').matches)
+          document.documentElement.dataset.theme = 'light';
+      } catch (_) {}
+    </script><link rel="stylesheet" href="/website/_astro/about.BeiGXazJ.css"></head> <body class="min-h-screen flex flex-col"> <header class="sticky top-0 z-50 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-md"> <nav class="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 flex h-14 items-center justify-between gap-4">  <div class="flex min-w-0 items-center gap-8"> <a href="/website/" class="truncate text-sm font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"> Umer Afzal </a> <ul class="hidden items-center gap-6 md:flex" role="list"> <li> <a href="/website/projects" class="text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] text-[var(--fg)]" aria-current="page"> Work </a> </li><li> <a href="/website/lab" class="text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] text-[var(--muted)] hover:text-[var(--fg)]"> Lab </a> </li><li> <a href="/website/writing" class="text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] text-[var(--muted)] hover:text-[var(--fg)]"> Writing </a> </li><li> <a href="/website/about" class="text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] text-[var(--muted)] hover:text-[var(--fg)]"> About </a> </li> </ul> </div> <div class="flex items-center gap-3">  <button type="button" id="theme-toggle" class="rounded-md border border-[var(--border)] px-2.5 py-1.5 font-mono text-xs text-[var(--muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]" aria-label="Toggle color theme">
+Theme
+</button> <script>
+  const storageKey = 'theme';
+  const root = document.documentElement;
+
+  function systemTheme() {
+    return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  }
+
+  function applyTheme(theme) {
+    if (theme === 'light') {
+      root.dataset.theme = 'light';
+    } else {
+      delete root.dataset.theme;
+    }
+    const btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+
+  function initTheme() {
+    const stored = localStorage.getItem(storageKey);
+    const theme = stored === 'light' || stored === 'dark' ? stored : systemTheme();
+    applyTheme(theme);
+  }
+
+  initTheme();
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    localStorage.setItem(storageKey, next);
+    applyTheme(next);
+  });
+</script> <button type="button" id="mobile-nav-toggle" class="inline-flex rounded-md border border-[var(--border)] px-2.5 py-1.5 font-mono text-xs text-[var(--muted)] md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]" aria-expanded="false" aria-controls="mobile-nav-panel">
+Menu
+</button> </div>  </nav> <div id="mobile-nav-panel" class="hidden border-t border-[var(--border)] md:hidden" hidden> <nav class="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 flex flex-col gap-3 py-4"> <a href="/website/projects" class="text-sm text-[var(--muted)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"> Work </a><a href="/website/lab" class="text-sm text-[var(--muted)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"> Lab </a><a href="/website/writing" class="text-sm text-[var(--muted)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"> Writing </a><a href="/website/about" class="text-sm text-[var(--muted)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"> About </a> </nav> </div> </header> <script>
+  const toggle = document.getElementById('mobile-nav-toggle');
+  const panel = document.getElementById('mobile-nav-panel');
+  toggle?.addEventListener('click', () => {
+    const open = panel?.hasAttribute('hidden');
+    if (open) {
+      panel?.removeAttribute('hidden');
+      panel?.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    } else {
+      panel?.setAttribute('hidden', '');
+      panel?.classList.add('hidden');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script> <main class="flex-1 page-enter">  <article class="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 py-16 sm:py-20">  <header class="mb-12 border-b border-[var(--border)] pb-10"> <div class="mb-4 flex flex-wrap gap-2"> <span class="inline-flex items-center rounded border border-[var(--border)] bg-[var(--bg-elevated)] px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-wide text-[var(--muted)]"> experiment </span> <span class="inline-flex items-center rounded border border-[var(--border)] bg-[var(--bg-elevated)] px-2 py-0.5 font-mono text-[0.65rem] uppercase tracking-wide text-[var(--muted)]"> active </span> </div> <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Developer tooling experiments</h1> <p class="mt-4 max-w-2xl text-lg text-[var(--muted)] leading-relaxed">Scripts and small tools that improve local workflows for mobile and TypeScript development.</p>  <div class="mt-6"> <ul class="flex flex-wrap gap-2" role="list"> <li> <span class="rounded border border-[var(--border)] px-2.5 py-1 font-mono text-xs text-[var(--muted)]"> Developer tooling </span> </li><li> <span class="rounded border border-[var(--border)] px-2.5 py-1 font-mono text-xs text-[var(--muted)]"> Automation </span> </li><li> <span class="rounded border border-[var(--border)] px-2.5 py-1 font-mono text-xs text-[var(--muted)]"> React Native </span> </li><li> <span class="rounded border border-[var(--border)] px-2.5 py-1 font-mono text-xs text-[var(--muted)]"> Swift </span> </li> </ul> </div> </header> <div class="prose-portfolio"> <h2 id="overview">Overview</h2>
+<p>A bucket for automation, CLI helpers, and workflow tweaks — shared when they are stable enough to document publicly.</p> </div> <p class="mt-12"> <a href="/website/projects" class="text-sm text-[var(--accent)] underline underline-offset-4">← All work</a> </p>  </article>  </main> <footer class="mt-24 border-t border-[var(--border)] py-12"> <div class="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">  <div> <p class="font-semibold">Umer Afzal</p> <p class="mt-1 text-sm text-[var(--muted)]">Senior iOS Engineer</p> <p class="text-sm text-[var(--muted)]">Berlin, Germany</p> </div> <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm" role="list"><li><a class="text-[var(--muted)] transition-colors hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]" href="https://www.linkedin.com/in/umer-afzal" rel="noopener noreferrer" target="_blank">LinkedIn</a></li><li><a class="text-[var(--muted)] transition-colors hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]" href="mailto:umer.afzal07@gmail.com">Email</a></li></ul>  </div> <div class="mx-auto w-full max-w-5xl px-5 sm:px-6 lg:px-8 mt-8">  <p class="font-mono text-xs text-[var(--muted)]">© 2026 Umer Afzal</p>  </div> </footer> </body></html>
